@@ -1,6 +1,6 @@
 import os
 
-EMB_DIM = 2048
+EMB_DIM = 1024
 REP_PER_CATEGORY = 10
 
 INDEX_DIR = "database/faiss_indexes"

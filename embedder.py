@@ -6,8 +6,6 @@ from Inference.chroma_configs import get_cat_collection, get_client, get_pr_coll
 from Inference.dataset import (
     ImageDataset, 
     collate_fn, 
-    extract_batch_embeddings,
-    preprocess_dataset,
     extract_batch_embeddings_collection
 )
 # from Inference.model import get_model, get_transforms, Embedder
@@ -15,7 +13,7 @@ from Inference.model import get_model, get_transforms
 
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-EMB_DIM = 2048
+EMB_DIM = 1024
 
 
 transforms = get_transforms()
@@ -42,16 +40,7 @@ loader = DataLoader(
 )
 
 
-print("starting to embedd images ...")
-# all_embeddings, all_metadatas = extract_batch_embeddings(loader, model, DEVICE)
-extract_batch_embeddings_collection(loader, model, DEVICE, products_collection)
-print("done!")
-
-# ids = [str(i) for i in range(1, all_embeddings.shape[0]+1)]
-# ids = [str(uuid.uuid4()) for _ in range(all_embeddings.shape[0])]
-
-# products_collection.add(
-#     embeddings=all_embeddings,
-#     metadatas=all_metadatas,
-#     ids=ids
-# )
+if __name__ == "__main__":
+    print(f"Starting embedding on {DEVICE}...")
+    extract_batch_embeddings_collection(loader, model, DEVICE, products_collection)
+    print("Done!")

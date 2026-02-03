@@ -124,6 +124,7 @@ def extract_batch_embeddings_collection(
     collection,
     start_id=0,
     chroma_batch_size=5000,
+    output_metadata_path="data/product_metadata.parquet"
 ):
     model.eval()
     current_id = start_id
@@ -131,6 +132,7 @@ def extract_batch_embeddings_collection(
     emb_buffer = []
     meta_buffer = []
     id_buffer = []
+    all_processed_metadata = [] 
     buffer_count = 0
 
     with torch.no_grad():
@@ -172,6 +174,17 @@ def extract_batch_embeddings_collection(
             ids=id_buffer,
         )
 
+    
+    # --- بخش حیاتی: ذخیره فایل Mapping نهایی ---
+    print(f"💾 Saving sync metadata to {output_metadata_path}...")
+    # تبدیل لیست دیکشنری‌ها به دیتافریم و ذخیره
+    df_sync = pd.DataFrame(all_processed_metadata)
+    # اضافه کردن ستون faiss_id برای اطمینان (اختیاری ولی سینیوری)
+    # df_sync['faiss_id'] = range(len(df_sync))
+    
+    df_sync.to_parquet(output_metadata_path, index=False)
+    print(f"✅ Sync complete. Total processed: {len(df_sync)}")
+    
     return current_id
 
 

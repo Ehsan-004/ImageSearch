@@ -9,7 +9,7 @@ from model import get_model, get_transforms
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 DATA_PATH = "./data/"
 DB_STORE_PATH = "./database"
-EMB_DIM = 2048
+EMB_DIM = 1024
 BATCH_SIZE = 2000
 M = 300  # number of connections in graph
 
@@ -22,7 +22,7 @@ categories_collection = get_cat_collection(client)
 
 print("creating faiss index ...")
 index = faiss.IndexHNSWFlat(EMB_DIM, M)
-index.hnsw.efConstruction = 300  # accuracy while indexing
+index.hnsw.efConstruction = 256  # accuracy while indexing
 
 
 total_count = products_collection.count()
@@ -53,11 +53,12 @@ with tqdm(total=total_count, desc="Indexing embeddings") as pbar:
 
 
 
-index.hnsw.efSearch = 256  # accuracy while searching
+index.hnsw.efSearch = 128  # accuracy while searching
 
 print("faiss index created.")
 faiss.write_index(index, f"{DATA_PATH}/product_index.index")
 print("✅ faiss index saved")
+
 
 
 

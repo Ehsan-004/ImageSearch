@@ -75,7 +75,7 @@ from Inference.model import get_model, get_transforms
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 DATA_PATH = "./data/"
 DB_STORE_PATH = "./database"
-EMB_DIM = 2048
+EMB_DIM = 1024
 
 transforms = get_transforms()
 model = get_model().to(DEVICE)
