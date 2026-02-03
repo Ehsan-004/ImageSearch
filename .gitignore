@@ -1,0 +1,11 @@
+*/__pycache__/
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.pyc
+data/
+database/
+*.index
+*/inputs/
+Others/

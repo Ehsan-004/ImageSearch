@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Results</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container wide">
+    <div class="card">
+
+        <div class="results-header">
+            <h1>Search Results</h1>
+            <a href="/" class="back-btn">← New Search</a>
+        </div>
+
+        <!-- QUERY IMAGE -->
+        <div class="query-section">
+            <div class="label">Query Image</div>
+            <div class="query-image-wrapper">
+                <img src="{{ query_image }}" alt="Query Image">
+            </div>
+        </div>
+
+        <!-- RESULTS -->
+        <div class="results-section">
+            <div class="label">
+                Similar Images (Top {{ top_k }})
+            </div>
+
+            <div class="image-grid">
+                {% for item in results %}
+                <div class="result-card">
+                    <div class="image-wrapper">
+                        <img src="{{ item.path }}" alt="Result">
+                    </div>
+                    <div class="score">
+                        Distance: {{ "%.4f"|format(item.distance) }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
