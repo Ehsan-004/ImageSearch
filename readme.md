@@ -28,6 +28,15 @@ The system was evaluated on the **GLAMI dataset** containing over **900,000 fash
 </div>
 
 
+## To use:
+1. Read and create a parquet file like I did in data.ipynb
+2. Run ```embedder.py``` and change the path of parquet file to create and save embeddings.
+3. Run ```build_index.py``` to crete and save indexes of embeddings.
+4. Run fast api back-end: ```fastapi dev App/main.py```
+5. Go to ```localhost:8000```
+
+
+
 <br>
 
 ## 🧑‍💻 Developer
