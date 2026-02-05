@@ -30,10 +30,10 @@ dataset = ImageDataset("data/data.parquet", transforms)
 
 loader = DataLoader(
     dataset,
-    batch_size=256,          # بسته به VRAM
+    batch_size=256,
     shuffle=False,
-    num_workers=os.cpu_count() - 2,          # CPU cores
-    pin_memory=True,        # مهم برای GPU
+    num_workers=os.cpu_count() - 2,
+    pin_memory=True,
     persistent_workers=True,
     collate_fn=collate_fn,
     prefetch_factor=2

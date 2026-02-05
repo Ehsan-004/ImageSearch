@@ -105,7 +105,7 @@ def extract_batch_embeddings(loader, model, device):
     all_meta = []
     
     with torch.no_grad():
-        with torch.cuda.amp.autocast(): # سرعت بالاتر با دقت نیم‌شناور
+        with torch.cuda.amp.autocast():
             for images, metadatas in tqdm.tqdm(loader):
                 images = images.to(device, non_blocking=True)
                 embs = model(images)
@@ -174,13 +174,9 @@ def extract_batch_embeddings_collection(
             ids=id_buffer,
         )
 
-    
-    # --- بخش حیاتی: ذخیره فایل Mapping نهایی ---
     print(f"💾 Saving sync metadata to {output_metadata_path}...")
-    # تبدیل لیست دیکشنری‌ها به دیتافریم و ذخیره
+    
     df_sync = pd.DataFrame(all_processed_metadata)
-    # اضافه کردن ستون faiss_id برای اطمینان (اختیاری ولی سینیوری)
-    # df_sync['faiss_id'] = range(len(df_sync))
     
     df_sync.to_parquet(output_metadata_path, index=False)
     print(f"✅ Sync complete. Total processed: {len(df_sync)}")
